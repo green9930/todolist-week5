@@ -17,7 +17,6 @@ const TodoEditor = ({ handleIsEdit, todo }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (textContent==="") return
-    dispatch(__updateComments({id:todo.id, content:textContent}));
     handleIsEdit();
   };
 
