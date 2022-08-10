@@ -3,19 +3,21 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Button from 'components/elements/Button';
 
+
 function Todo({ todo }) {
   // const { title, name, id } = todo;
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleDelete = () => {};
-
+  const handleDelete = () => {
+  };
+ 
   return (
     <div>
       <TodoLists>
-        <TodoInfoContainer onClick={() => navigate(`1`)}>
-          <TodoListTitle>제목</TodoListTitle>
-          <TodoListWriter>작성자: 이름</TodoListWriter>
+        <TodoInfoContainer onClick={() => navigate(`/todos/${todo.id}`)}>
+          <TodoListTitle>{todo.title}</TodoListTitle>
+          <TodoListWriter>{todo.name}</TodoListWriter>
         </TodoInfoContainer>
         <ButtonCotainer>
           <Button variant="delete" clickHandler={handleDelete} />

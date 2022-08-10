@@ -3,6 +3,7 @@ import { faTrash, faHouse, faPencil } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Button = ({ children, size, variant, type, clickHandler }) => {
+
   return (
     <StButton size={size} variant={variant} type={type} onClick={clickHandler}>
       {children}
@@ -67,6 +68,8 @@ ${(props) => {
         background-color: rgb(203 229 172);
         border: 1px solid rgb(203 229 172);
         border-radius: 3px;
+        padding:4px;
+        font-size:16px;
       `
     );
   }}
@@ -90,6 +93,8 @@ ${(props) => {
         background-color: rgb(203 229 172);
         border: 1px solid rgb(203 229 172);
         border-radius: 3px;
+        padding:4px;
+        font-size:16px;
       `
     );
   }}

@@ -35,6 +35,8 @@ const TodoForm = () => {
         name="name"
         value={inputName}
         changeHandler={getChangedName}
+        maxLength="5"
+        minLength="1"
       />
       <Input
         id="todoTitle"
@@ -43,12 +45,16 @@ const TodoForm = () => {
         name="title"
         value={inputTitle}
         changeHandler={getChangeTitle}
+        minLength="1"
+        maxLength="50"
       />
       <TodoTextarea
         todoLabel="내용"
         name="content"
         value={inputContent}
         changeHandler={getChangedContnet}
+        minLength="2"
+        maxLength="200"
       />
       <Button size="large" type="submit">
         추가하기
