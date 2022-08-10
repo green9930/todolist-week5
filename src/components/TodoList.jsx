@@ -1,18 +1,23 @@
 import styled from 'styled-components';
 import Todo from 'components/Todo';
 import { useDispatch, useSelector } from 'react-redux';
-import { __readTodos } from '../redux/modules/todosSlice';
-import { useEffect } from 'react';
 import Loading from 'components/Loading';
+import { useEffect, useState } from 'react';
+import { __readTodos } from 'redux/modules/todosSlice';
 import ErrorMessage from 'components/ErrorMessage';
 
 const TodoList = () => {
+  const todos = useSelector(state => state.todos.todos);
   const dispatch = useDispatch();
-  const { error, isLoading, todos } = useSelector((state) => state.todos);
+  const [isLoading , setIsLoading] = useState(true);
+  
+  // const handLoadingEdit = () => setIsLoading(!isLoading);
 
   useEffect(() => {
     dispatch(__readTodos());
   }, [dispatch]);
+
+  console.log(todos);
 
   if (isLoading) {
     return <Loading />;

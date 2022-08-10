@@ -2,23 +2,32 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Button from 'components/elements/Button';
+import { __deleteTodos } from 'redux/modules/todosSlice';
+import { useEffect } from 'react';
 
-function Todo({ todo }) {
-  // const { title, name, id } = todo;
+function Todo({todo}) {
+  const { title, name, id } = todo;
+  console.log(todo)
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleDelete = () => {};
+
+  const handleDelete = () => {
+      dispatch(__deleteTodos(id))
+    }
+  // useEffect(()=>{
+  // dispatch(__deleteTodos(id))
+  // })
 
   return (
     <div>
       <TodoLists>
-        <TodoInfoContainer onClick={() => navigate(`/todos/${todo.id}`)}>
-          <TodoListTitle>{todo.title}</TodoListTitle>
-          <TodoListWriter>{todo.name}</TodoListWriter>
+        <TodoInfoContainer onClick={() => navigate(`${id}`)}>
+          <TodoListTitle>{title}</TodoListTitle>
+          <TodoListWriter>{name}</TodoListWriter>
         </TodoInfoContainer>
         <ButtonCotainer>
-          <Button variant="delete" clickHandler={handleDelete} />
+          <Button variant="delete" clickHandler={handleDelete}/>
         </ButtonCotainer>
       </TodoLists>
     </div>
