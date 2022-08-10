@@ -104,16 +104,12 @@ export const todosSlice = createSlice({
     [__updateTodos.pending]: (state) => {
       state.isLoading = true;
     },
-    [__updateTodos.fulfilled]: (state, action) => {
+    [__updateTodos.fulfilled]: (state, {payload}) => {
       state.isLoading = false;
-      // state.todos = action.payload;
-      console.log('Update TODOS', state.todos);
       console.log('Update TODOS', action);
-      // state= action.payload.content
       state.todos = state.todos.map((todo) =>
-        todo.id === action.payload.id ? { ...todo, content: action.payload.content } : todo);
+        todo.id === payload.id ? { ...todo, content: payload.content } : todo);
     },
-
   },
   [__updateTodos.rejected]: (state, { payload }) => {
     state.isLoading = false;
