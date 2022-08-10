@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const TodoContent = ({ todo }) => {
   const { id, title, content } = todo;
@@ -7,6 +8,7 @@ const TodoContent = ({ todo }) => {
     <div>
       <TodoIdContainer>
         <StyledTodoId>{`id: (${id})`}</StyledTodoId>
+        <Link to="/todos">이전으로</Link>
       </TodoIdContainer>
       <TodoContainer>
         <h2>{title}</h2>
@@ -24,6 +26,8 @@ export default TodoContent;
 
 const TodoIdContainer = styled.div`
   margin-bottom: 32px;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const TodoContainer = styled.div`

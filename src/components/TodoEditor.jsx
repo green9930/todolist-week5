@@ -1,16 +1,16 @@
-import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import TodoTextarea from 'components/elements/TodoTextarea';
 import Button from './elements/Button';
 import useInput from 'hooks/useInput';
 import { __updateTodos ,__readTodos} from 'redux/modules/todosSlice';
+import { __readComments, __updateComments } from 'redux/modules/commentsSlice';
 
 const TodoEditor = ({ handleIsEdit, todo }) => {
   const [textContent, getChangedTextContent] = useInput();
-  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (textContent.trim() === '') return;
     handleIsEdit();
     handleUpdate();
   };
