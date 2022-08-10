@@ -23,6 +23,7 @@ const TodoForm = () => {
         content: inputContent,
       })
     );
+
     navigate('/todos');
   };
 

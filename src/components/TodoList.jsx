@@ -1,33 +1,38 @@
 import styled from 'styled-components';
 import Todo from 'components/Todo';
-import { useDispatch,useSelector } from 'react-redux';
-import {__readTodos} from "../redux/modules/todosSlice";
-import React,{useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { __readTodos } from '../redux/modules/todosSlice';
+import { useEffect } from 'react';
+import Loading from 'components/Loading';
+import ErrorMessage from 'components/ErrorMessage';
 
-function TodoList() {
+const TodoList = () => {
   const dispatch = useDispatch();
-  useEffect (()=>{
-    dispatch(__readTodos());
-  },[dispatch]);
-  const {error,isLoading,todos} =useSelector((state)=>state.todos)
+  const { error, isLoading, todos } = useSelector((state) => state.todos);
 
-  if(isLoading){
-    return <div>로딩 중...</div>
-    }
-  if(error){
-    return <div>{error.message}</div>
-    }
+  useEffect(() => {
+    dispatch(__readTodos());
+  }, [dispatch]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (error) {
+    return <ErrorMessage error={error.message} />;
+  }
+
   return (
     <div>
-      <>
-        <TodoListTitle>내 할일</TodoListTitle>
-        <ListArray>
-          {todos.map((todo)=><Todo key={todo.id} todo={todo}/>)}
-        </ListArray>
-      </>
+      <TodoListTitle>내 할일</TodoListTitle>
+      <ListArray>
+        {todos.map((todo) => (
+          <Todo key={todo.id} todo={todo} />
+        ))}
+      </ListArray>
     </div>
   );
-}
+};
 
 export default TodoList;
 

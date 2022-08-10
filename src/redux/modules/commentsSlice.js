@@ -1,5 +1,5 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 const initialState = {
   comments: [],
@@ -8,11 +8,11 @@ const initialState = {
 };
 
 export const __createComments = createAsyncThunk(
-  "postComments",
+  'postComments',
   async (payload, thunkAPI) => {
     try {
       const response = await axios.post(
-        "http://localhost:3001/comments",
+        'http://localhost:3001/comments',
         payload
       );
       return thunkAPI.fulfillWithValue(response.data);
@@ -23,10 +23,10 @@ export const __createComments = createAsyncThunk(
 );
 
 export const __readComments = createAsyncThunk(
-  "getComments",
+  'getComments',
   async (payload, thunkAPI) => {
     try {
-      const response = await axios.get("http://localhost:3001/comments");
+      const response = await axios.get('http://localhost:3001/comments');
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -34,7 +34,7 @@ export const __readComments = createAsyncThunk(
   }
 );
 export const __deleteComments = createAsyncThunk(
-  "deleteComments",
+  'deleteComments',
   async (payload, thunkAPI) => {
     try {
       await axios.delete(`http://localhost:3001/comments/${payload}`);
@@ -46,7 +46,7 @@ export const __deleteComments = createAsyncThunk(
 );
 
 export const __updateComments = createAsyncThunk(
-  "updateComments",
+  'updateComments',
   async (payload, thunkAPI) => {
     try {
       await axios.patch(`http://localhost:3001/comments/${payload.id}`, {
@@ -60,7 +60,7 @@ export const __updateComments = createAsyncThunk(
 );
 
 export const commentsSlice = createSlice({
-  name: "commentsSlice",
+  name: 'commentsSlice',
   initialState,
   reducers: {},
   extraReducers: {
@@ -70,7 +70,7 @@ export const commentsSlice = createSlice({
     [__createComments.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.comments.push(action.payload);
-      console.log("POST COMMENTS", action);
+      console.log('POST COMMENTS', action);
     },
     [__createComments.rejected]: (state, action) => {
       state.isLoading = false;
@@ -82,11 +82,26 @@ export const commentsSlice = createSlice({
     [__readComments.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.comments = action.payload;
-      console.log("GET COMMENTS", action);
+      console.log('GET COMMENTS', action);
     },
     [__readComments.rejected]: (state, { payload }) => {
       state.isLoading = false;
       state.error = payload;
+    },
+    [__updateComments.pending]: (state, action) => {
+      state.isLoading = true;
+    },
+    [__updateComments.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+      state.comments = state.comments.map((comment) =>
+        comment.id === payload.id
+          ? { ...comment, commentText: payload.commentText }
+          : comment
+      );
+    },
+    [__updateComments.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
     },
     [__deleteComments.pending]: (state, action) => {
       state.isLoading = true;
@@ -100,14 +115,6 @@ export const commentsSlice = createSlice({
     [__deleteComments.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
-    },
-    [__updateComments.fulfilled]: (state, { payload }) => {
-      state.isLoading = false;
-      state.comments = state.comments.map((comment) =>
-        comment.id === payload.id
-          ? { ...comment, commentText: payload.commentText }
-          : comment
-      );
     },
   },
 });

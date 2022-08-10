@@ -45,6 +45,8 @@ Input.defaultValue = {
   labelText: '',
   isHide: false,
   changeHandler: null,
+  minLength: 0,
+  maxLength: 200,
 };
 
 export default Input;

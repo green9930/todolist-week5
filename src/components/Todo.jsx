@@ -3,15 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Button from 'components/elements/Button';
 
-
 function Todo({ todo }) {
   // const { title, name, id } = todo;
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleDelete = () => {
-  };
- 
+  const handleDelete = () => {};
+
   return (
     <div>
       <TodoLists>

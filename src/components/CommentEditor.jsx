@@ -10,10 +10,11 @@ const CommentEditor = ({ comment, handleToggleCommentEditor }) => {
   const [newComment, setNewComment, commentReset] = useInput('');
 
   const dispatch = useDispatch();
+
   const handleUpdateComment = () => {
-    dispatch(__updateComments({todoId:id,commentText:newComment}))
+    dispatch(__updateComments({ id: id, commentText: newComment }));
+    commentReset();
     handleToggleCommentEditor();
-    commentReset()
   };
 
   return (
@@ -46,5 +47,5 @@ const CommentEditorWrapper = styled.div``;
 
 const CommentBtnWrapper = styled.div`
   display: flex;
-  gap:12px;
+  gap: 12px;
 `;

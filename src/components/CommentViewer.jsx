@@ -7,7 +7,9 @@ const CommentViewer = ({ comment, handleToggleCommentEditor }) => {
   const dispatch = useDispatch();
   const { todoId, name, commentText, id } = comment;
 
-  const handleDeleteComment = () => {dispatch(__deleteComments(id))};
+  const handleDeleteComment = () => {
+    dispatch(__deleteComments(id));
+  };
 
   return (
     <>

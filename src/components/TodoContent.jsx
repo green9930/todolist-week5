@@ -8,7 +8,7 @@ const TodoContent = ({ todo }) => {
     <div>
       <TodoIdContainer>
         <StyledTodoId>{`id: (${id})`}</StyledTodoId>
-        <Link to= '/todos' >이전으로</Link>
+        <Link to="/todos">이전으로</Link>
       </TodoIdContainer>
       <TodoContainer>
         <h2>{title}</h2>
@@ -26,8 +26,8 @@ export default TodoContent;
 
 const TodoIdContainer = styled.div`
   margin-bottom: 32px;
-  display:flex;
-  justify-content:space-between;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const TodoContainer = styled.div`
