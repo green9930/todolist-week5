@@ -12,7 +12,7 @@ const CommentViewer = ({ comment, handleToggleCommentEditor }) => {
   return (
     <>
       <CommentWrapper>
-        <span style={{fontSize: "11px"}}>{name}</span>
+        <StyledName>{name}</StyledName>
         <span>{commentText}</span>
       </CommentWrapper>
       <CommentBtnWrapper>
@@ -32,6 +32,10 @@ export default CommentViewer;
 const CommentWrapper = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const StyledName = styled.span`
+  font-size: 11px;
 `;
 
 const CommentBtnWrapper = styled.div`
