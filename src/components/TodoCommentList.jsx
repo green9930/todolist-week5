@@ -22,7 +22,7 @@ const TodoCommentList = ({ targetId }) => {
       ) : (
         comments
           .filter((val) => val.todoId === targetId)
-          .map((comment) => <Comment comment={comment} />)
+          .map((comment) => <Comment key={comment.id} comment={comment} />)
       )}
     </TodoCommentListContainer>
   );
@@ -32,4 +32,7 @@ export default TodoCommentList;
 
 const TodoCommentListContainer = styled.div`
   overflow: auto;
+  display:flex;
+  flex-direction:column;
+  gap:7px;
 `;

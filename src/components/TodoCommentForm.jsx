@@ -38,6 +38,8 @@ const TodoCommentForm = ({ todoId }) => {
             labelText="이름"
             isHide={true}
             changeHandler={getChangedCommentName}
+            maxLength="5" 
+            minLength="1"
           />
         </NameContainer>
         <Input
@@ -49,10 +51,13 @@ const TodoCommentForm = ({ todoId }) => {
           labelText="댓글"
           isHide={true}
           changeHandler={getChangedComment}
+          minLength="1"
+          maxLength="30"
         />
         <Button size="small" type="submit">
           추가
         </Button>
+
       </form>
     </TodoCommentFormContainer>
   );

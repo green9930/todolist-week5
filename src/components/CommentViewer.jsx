@@ -1,17 +1,18 @@
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import Button from 'components/elements/Button';
+import { __deleteComments } from 'redux/modules/commentsSlice';
 
 const CommentViewer = ({ comment, handleToggleCommentEditor }) => {
   const dispatch = useDispatch();
   const { todoId, name, commentText, id } = comment;
 
-  const handleDeleteComment = () => {};
+  const handleDeleteComment = () => {dispatch(__deleteComments(id))};
 
   return (
     <>
       <CommentWrapper>
-        <span>{name}</span>
+        <StyledName>{name}</StyledName>
         <span>{commentText}</span>
       </CommentWrapper>
       <CommentBtnWrapper>
@@ -31,6 +32,10 @@ export default CommentViewer;
 const CommentWrapper = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const StyledName = styled.span`
+  font-size: 11px;
 `;
 
 const CommentBtnWrapper = styled.div`
