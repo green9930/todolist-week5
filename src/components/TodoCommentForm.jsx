@@ -3,7 +3,6 @@ import useInput from 'hooks/useInput';
 import { useDispatch } from 'react-redux';
 import { __createComments } from 'redux/modules/commentsSlice';
 import styled from 'styled-components';
-import Button from './elements/Button';
 
 const TodoCommentForm = ({ todoId }) => {
   const [inputCommentName, getChangedCommentName, resetName] = useInput('');
@@ -40,19 +39,6 @@ const TodoCommentForm = ({ todoId }) => {
             changeHandler={getChangedCommentName}
           />
         </NameContainer>
-        <Input
-          value={inputComment}
-          id="commentContent"
-          name="commentContent"
-          placeholder="댓글을 추가하세요(1~30자)"
-          width="100%"
-          labelText="댓글"
-          isHide={true}
-          changeHandler={getChangedComment}
-        />
-        <Button size="small" type="submit">
-          추가
-        </Button>
       </form>
     </TodoCommentFormContainer>
   );
