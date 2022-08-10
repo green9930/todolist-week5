@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import { faTrash, faHouse, faPencil } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const Button = ({ children, size, variant, type = 'button', clickHandler }) => {
+const Button = ({ children, size, variant, type, clickHandler }) => {
   return (
     <StButton size={size} variant={variant} type={type} onClick={clickHandler}>
       {children}
@@ -17,10 +17,19 @@ const Button = ({ children, size, variant, type = 'button', clickHandler }) => {
   );
 };
 
+Button.defaultProps = {
+  children: '',
+  size: '',
+  variant: '',
+  type: 'button',
+  clickHandler: null,
+};
+
 export default Button;
 
 const StButton = styled.button`
   cursor: pointer;
+
   ${(props) => {
     return (
       props.size === 'large' &&
@@ -49,6 +58,7 @@ const StButton = styled.button`
       `
     );
   }}
+
 ${(props) => {
     return (
       props.variant === 'delete' &&
@@ -71,6 +81,7 @@ ${(props) => {
       `
     );
   }}
+
 ${(props) => {
     return (
       props.variant === 'revise' &&
