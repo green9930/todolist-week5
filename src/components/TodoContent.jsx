@@ -1,18 +1,18 @@
 import styled from 'styled-components';
 
-const TodoContent = (todo) => {
-  const { todoId, todoTitle, TodoContent } = todo;
+const TodoContent = ({ todo }) => {
+  const { id, title, content } = todo;
 
   return (
     <div>
       <TodoIdContainer>
-        <StyledTodoId>{`id: (${todoId})`}</StyledTodoId>
+        <StyledTodoId>{`id: (${id})`}</StyledTodoId>
       </TodoIdContainer>
       <TodoContainer>
-        <h2>{todoTitle}</h2>
+        <h2>{title}</h2>
         <TodoContentContainer>
           <div>
-            <span>{TodoContent}</span>
+            <span>{content}</span>
           </div>
         </TodoContentContainer>
       </TodoContainer>
@@ -47,9 +47,3 @@ const TodoContentContainer = styled.div`
     padding: 10px;
   }
 `;
-
-TodoContent.defaultProps = {
-  todoId: 0,
-  todoTitle: 'todo title',
-  TodoContent: 'todo content',
-};
