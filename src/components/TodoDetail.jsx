@@ -56,5 +56,4 @@ const TodoDetailContainer = styled.div`
   flex-direction: column;
   padding: 24px;
   justify-content: center;
-  width: 100%;
 `;
