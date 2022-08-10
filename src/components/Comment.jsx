@@ -1,17 +1,26 @@
+import { useState } from 'react';
 import styled from 'styled-components';
-import Button from 'components/elements/Button';
+import CommentEditor from 'components/CommentEditor';
+import CommentViewer from 'components/CommentViewer';
 
-const Comment = () => {
+const Comment = ({ comment }) => {
+  const [isEdit, setIsEdit] = useState(false);
+
+  const handleToggleCommentEditor = () => setIsEdit(!isEdit);
+
   return (
     <CommentContainer>
-      <CommentWrapper>
-        <span>name</span>
-        <span>comment</span>
-      </CommentWrapper>
-      <CommentBtnWrapper>
-        <Button variant="revise" />
-        <Button variant="delete" />
-      </CommentBtnWrapper>
+      {isEdit ? (
+        <CommentEditor
+          comment={comment}
+          handleToggleCommentEditor={handleToggleCommentEditor}
+        />
+      ) : (
+        <CommentViewer
+          comment={comment}
+          handleToggleCommentEditor={handleToggleCommentEditor}
+        />
+      )}
     </CommentContainer>
   );
 };
@@ -25,17 +34,4 @@ const CommentContainer = styled.div`
   border: 1px solid #9e9e9e;
   border-radius: 10px;
   padding: 12px;
-`;
-
-const CommentWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const CommentBtnWrapper = styled.div`
-  display: flex;
-
-  button {
-    margin-right: 10px;
-  }
 `;
