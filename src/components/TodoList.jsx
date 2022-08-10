@@ -1,14 +1,21 @@
-import React from 'react';
 import styled from 'styled-components';
 import Todo from 'components/Todo';
+import Loading from 'components/Loading';
 
 function TodoList() {
   return (
     <div>
-      <TodoListTitle>내 할일</TodoListTitle>
-      <ListArray>
-        <Todo />
-      </ListArray>
+      {/* {isLoading ? ( */}
+      {/* <Loading /> */}
+      {/* ) : ( */}
+      <>
+        <TodoListTitle>내 할일</TodoListTitle>
+        <ListArray>
+          {/* todos.map() */}
+          <Todo />
+        </ListArray>
+      </>
+      {/* )} */}
     </div>
   );
 }

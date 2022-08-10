@@ -1,12 +1,25 @@
 import styled from 'styled-components';
-import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import Button from 'components/elements/Button';
 
-function Todo() {
+function Todo({ todo }) {
+  // const { title, name, id } = todo;
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleDelete = () => {};
+
   return (
     <div>
       <TodoLists>
-        <TodoListContent>내용</TodoListContent>
-        <TodoListWriter>작성자:홍길동</TodoListWriter>
+        <TodoInfoContainer onClick={() => navigate(`1`)}>
+          <TodoListTitle>제목</TodoListTitle>
+          <TodoListWriter>작성자: 이름</TodoListWriter>
+        </TodoInfoContainer>
+        <ButtonCotainer>
+          <Button variant="delete" clickHandler={handleDelete} />
+        </ButtonCotainer>
       </TodoLists>
     </div>
   );
@@ -15,7 +28,6 @@ function Todo() {
 export default Todo;
 
 const TodoLists = styled.div`
-  padding: 12px;
   height: 90px;
   border: 1px solid rgb(221, 221, 221);
   background-color: rgb(255, 255, 255);
@@ -23,16 +35,24 @@ const TodoLists = styled.div`
   width: 90%;
   margin: 0px auto;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   gap: 15px;
+`;
+
+const TodoInfoContainer = styled.div`
+  flex-grow: 1;
   padding: 20px;
 `;
 
-const TodoListContent = styled.p`
+const TodoListTitle = styled.p`
   font-size: 20px;
   font-weight: 400;
 `;
 
 const TodoListWriter = styled.p`
   font-size: 10px;
+`;
+
+const ButtonCotainer = styled.div`
+  padding: 20px;
 `;

@@ -1,5 +1,5 @@
-import TodoList from 'components/TodoList';
 import Layout from 'layout/Layout';
+import TodoList from 'components/TodoList';
 
 const TodoListPage = () => {
   return (
