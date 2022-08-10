@@ -31,6 +31,33 @@ export const __readTodos = createAsyncThunk(
   }
 );
 
+export const __deleteTodos = createAsyncThunk(
+  'deleteTodos',
+  async (payload, thunkAPI) => {
+    try {
+      await axios.delete(`http://localhost:3001/todos/${payload}`, payload);
+      return thunkAPI.fulfillWithValue(payload);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const __updateTodos = createAsyncThunk(
+  "updateTodos",
+  async (payload, thunkAPI) => {
+    try {
+      await axios.patch(`http://localhost:3001/todos/${payload.id}`, {
+        content: payload.content,
+      });
+      return thunkAPI.fulfillWithValue(payload);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+
 export const todosSlice = createSlice({
   name: 'todosSlice',
   initialState,
@@ -41,6 +68,7 @@ export const todosSlice = createSlice({
     },
     [__createTodos.fulfilled]: (state, action) => {
       state.isLoading = false; // 네트워크 요청 끝났으므로 false로 변경
+      console.log(state)
       state.todos.push(action.payload); // Promise가 fullfilled일 때 dispatch
       console.log('POST TODOS', action);
     },
@@ -60,7 +88,40 @@ export const todosSlice = createSlice({
       state.isLoading = false;
       state.error = payload;
     },
+    [__deleteTodos.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__deleteTodos.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      // state.todos = action.payload;
+      console.log('Delete TODOS', state.todos);
+      state.todos = state.todos.filter((todo) => todo.id !== action.payload)
+    },
+    [__deleteTodos.rejected]: (state, { payload }) => {
+      state.isLoading = false;
+      state.error = payload;
+    },
+    [__updateTodos.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__updateTodos.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      // state.todos = action.payload;
+      console.log('Update TODOS', state.todos);
+      console.log('Update TODOS', action);
+      // state= action.payload.content
+      state.todos = state.todos.map((todo) =>
+        todo.id === action.payload.id ? { ...todo, content: action.payload.content } : todo);
+    },
+
   },
-});
+  [__updateTodos.rejected]: (state, { payload }) => {
+    state.isLoading = false;
+    state.error = payload;
+  },
+
+
+},
+);
 
 export default todosSlice;
