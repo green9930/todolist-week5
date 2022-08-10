@@ -5,6 +5,7 @@ import { __deleteComments } from 'redux/modules/commentsSlice';
 
 const CommentViewer = ({ comment, handleToggleCommentEditor }) => {
   const dispatch = useDispatch();
+
   const { todoId, name, commentText, id } = comment;
 
   const handleDeleteComment = () => {
@@ -18,10 +19,18 @@ const CommentViewer = ({ comment, handleToggleCommentEditor }) => {
         <span>{commentText}</span>
       </CommentWrapper>
       <CommentBtnWrapper>
-        <Button variant="revise" clickHandler={handleToggleCommentEditor}>
+        <Button
+          variant="revise"
+          clickHandler={handleToggleCommentEditor}
+          isVisible={false}
+        >
           수정
         </Button>
-        <Button variant="delete" clickHandler={handleDeleteComment}>
+        <Button
+          variant="delete"
+          clickHandler={handleDeleteComment}
+          isVisible={false}
+        >
           삭제
         </Button>
       </CommentBtnWrapper>

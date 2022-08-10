@@ -2,47 +2,50 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import Button from 'components/elements/Button';
 import TodoComment from 'components/TodoComment';
-import TodoContent from 'components/TodoContent';
 import TodoEditor from 'components/TodoEditor';
+import Loading from 'components/Loading';
+import ErrorMessage from 'components/ErrorMessage';
+import TodoViewer from 'components/TodoViewer';
 import { __readTodos } from 'redux/modules/todosSlice';
 
 const TodoDetail = () => {
-  const [isEdit, setIsEdit] = useState(false);
-  const { id } = useParams();
-
   const dispatch = useDispatch();
+  const { id } = useParams();
+  const [isEdit, setIsEdit] = useState(false);
+
+  const { todos, isLoading, error } = useSelector((state) => state.todos);
+  const todo = todos.find((todo) => todo.id === parseInt(id));
 
   useEffect(() => {
     dispatch(__readTodos());
   }, [dispatch]);
 
-  const { todos } = useSelector((state) => state.todos);
-  const todo = todos.find((todo) => todo.id === parseInt(id));
-
   const handleIsEdit = () => setIsEdit(!isEdit);
 
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (error) {
+    return <ErrorMessage error={error.message} />;
+  }
+
   return (
-    <TodoDetailContainer>
+    <>
       {todo ? (
-        <>
+        <TodoDetailContainer>
           {isEdit ? (
-            <TodoEditor handleIsEdit={handleIsEdit} todo={todo} />
+            <TodoEditor todo={todo} handleIsEdit={handleIsEdit} />
           ) : (
-            <>
-              <TodoContent todo={todo} />
-              <Button size="large" clickHandler={handleIsEdit}>
-                수정하기
-              </Button>
-            </>
+            <TodoViewer todo={todo} handleIsEdit={handleIsEdit} />
           )}
           {!isEdit && <TodoComment todoId={todo.id} />}
-        </>
+        </TodoDetailContainer>
       ) : (
-        <div>loading...</div>
+        <Loading />
       )}
-    </TodoDetailContainer>
+    </>
   );
 };
 

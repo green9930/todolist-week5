@@ -1,23 +1,18 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Todo from 'components/Todo';
-import { useDispatch, useSelector } from 'react-redux';
 import Loading from 'components/Loading';
-import { useEffect, useState } from 'react';
-import { __readTodos } from 'redux/modules/todosSlice';
 import ErrorMessage from 'components/ErrorMessage';
+import { __readTodos } from 'redux/modules/todosSlice';
 
 const TodoList = () => {
-  const todos = useSelector(state => state.todos.todos);
   const dispatch = useDispatch();
-  const [isLoading , setIsLoading] = useState(true);
-  
-  // const handLoadingEdit = () => setIsLoading(!isLoading);
+  const { todos, isLoading, error } = useSelector((state) => state.todos);
 
   useEffect(() => {
     dispatch(__readTodos());
   }, [dispatch]);
-
-  console.log(todos);
 
   if (isLoading) {
     return <Loading />;
@@ -42,8 +37,8 @@ const TodoList = () => {
 export default TodoList;
 
 const TodoListTitle = styled.h1`
-  font-size: 32px;
   margin: 30px 20px;
+  font-size: 32px;
 `;
 
 const ListArray = styled.div`

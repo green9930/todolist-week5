@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import CommentEditor from 'components/CommentEditor';
 import CommentViewer from 'components/CommentViewer';
+import { colors } from 'theme/theme';
 
 const Comment = ({ comment }) => {
   const [isEdit, setIsEdit] = useState(false);
@@ -31,7 +32,9 @@ const CommentContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border: 1px solid #9e9e9e;
+  height: 80px;
+  border: 1px solid ${colors.orange};
   border-radius: 10px;
-  padding: 12px;
+  margin-bottom: 10px;
+  padding: 12px 20px;
 `;

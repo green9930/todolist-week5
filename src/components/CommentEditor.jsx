@@ -2,14 +2,15 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import Input from 'components/elements/Input';
 import Button from 'components/elements/Button';
-import useInput from 'hooks/useInput';
 import { __updateComments } from 'redux/modules/commentsSlice';
+import useInput from 'hooks/useInput';
 
 const CommentEditor = ({ comment, handleToggleCommentEditor }) => {
-  const { todoId, name, commentText, id } = comment;
+  const dispatch = useDispatch();
+
   const [newComment, setNewComment, commentReset] = useInput('');
 
-  const dispatch = useDispatch();
+  const { todoId, name, commentText, id } = comment;
 
   const handleUpdateComment = () => {
     dispatch(__updateComments({ id: id, commentText: newComment }));
@@ -26,14 +27,14 @@ const CommentEditor = ({ comment, handleToggleCommentEditor }) => {
           isHide={true}
           defaultValue={commentText}
           changeHandler={setNewComment}
-          // width="800px"
+          width="500px"
         />
       </CommentEditorWrapper>
       <CommentBtnWrapper>
-        <Button variant="revise" clickHandler={handleToggleCommentEditor}>
+        <Button variant="normal" clickHandler={handleToggleCommentEditor}>
           취소
         </Button>
-        <Button variant="revise" clickHandler={handleUpdateComment}>
+        <Button variant="normal" clickHandler={handleUpdateComment}>
           저장
         </Button>
       </CommentBtnWrapper>
@@ -43,7 +44,9 @@ const CommentEditor = ({ comment, handleToggleCommentEditor }) => {
 
 export default CommentEditor;
 
-const CommentEditorWrapper = styled.div``;
+const CommentEditorWrapper = styled.div`
+  margin-left: -15px;
+`;
 
 const CommentBtnWrapper = styled.div`
   display: flex;

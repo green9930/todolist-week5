@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import { a11yHidden } from 'styles/mixin';
+import { colors } from 'theme/theme';
 
 const Input = ({
   value,
@@ -10,7 +11,7 @@ const Input = ({
   width,
   labelText,
   isHide,
-  changeHandler = null,
+  changeHandler,
   minLength,
   maxLength,
 }) => {
@@ -58,6 +59,7 @@ const FormInputContainer = styled.div`
 `;
 
 const FormInput = styled.input`
+  outline: none;
   ${(props) => {
     return (
       props.type === 'text' &&
@@ -66,7 +68,7 @@ const FormInput = styled.input`
         width: ${(props) => props.width || '90%'};
         padding: 10px;
         margin: 10px;
-        border: 1px solid #eeeeee;
+        border: 1px solid ${colors.lightGray};
         border-radius: 3px;
       `
     );

@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import TodoCommentForm from './TodoCommentForm';
-import TodoCommentList from './TodoCommentList';
+import TodoCommentForm from 'components/TodoCommentForm';
+import TodoCommentList from 'components/TodoCommentList';
+import { colors } from 'theme/theme';
 
 const TodoComment = ({ todoId }) => {
   const [isShow, setIsShow] = useState(false);
@@ -22,24 +23,25 @@ const TodoComment = ({ todoId }) => {
 export default TodoComment;
 
 const TodoCommentContainer = styled.div`
-  border: 1px solid #c9c9c9;
-  border-radius: 10px 10px 0 0;
-  height: 400px;
-  position: fixed;
   max-width: 1152px;
+  height: 520px;
+  position: fixed;
   width: 100%;
   bottom: 0%;
   left: 50%;
+  border: 3px solid ${colors.orange};
+  border-radius: 10px 10px 0 0;
   transform: translate(-50%, 0%);
   transform: ${({ isShow }) => (isShow ? '' : `translate(-50%, 82%)`)};
   transition: all 600ms cubic-bezier(0.8, 0, 0.1, 1);
+  background-color: ${colors.white};
   overflow: auto;
 `;
 
 const TodoCommentWrapper = styled.div`
-  padding: 24px;
+  padding: 10px 30px;
 `;
 
 const StyledShowBtn = styled.div`
-  padding: 24px;
+  padding: 30px;
 `;

@@ -1,23 +1,19 @@
-import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 import Button from 'components/elements/Button';
 import { __deleteTodos } from 'redux/modules/todosSlice';
-import { useEffect } from 'react';
+import { colors } from 'theme/theme';
 
-function Todo({todo}) {
-  const { title, name, id } = todo;
-  console.log(todo)
-  const navigate = useNavigate();
+function Todo({ todo }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  const { title, name, id } = todo;
 
   const handleDelete = () => {
-      dispatch(__deleteTodos(id))
-    }
-  // useEffect(()=>{
-  // dispatch(__deleteTodos(id))
-  // })
+    dispatch(__deleteTodos(id));
+  };
 
   return (
     <div>
@@ -27,7 +23,7 @@ function Todo({todo}) {
           <TodoListWriter>{name}</TodoListWriter>
         </TodoInfoContainer>
         <ButtonCotainer>
-          <Button variant="delete" clickHandler={handleDelete}/>
+          <Button variant="delete" clickHandler={handleDelete} />
         </ButtonCotainer>
       </TodoLists>
     </div>
@@ -37,14 +33,13 @@ function Todo({todo}) {
 export default Todo;
 
 const TodoLists = styled.div`
-  height: 90px;
-  border: 1px solid rgb(221, 221, 221);
-  background-color: rgb(255, 255, 255);
-  border-radius: 12px;
-  width: 90%;
-  margin: 0px auto;
   display: flex;
   justify-content: space-between;
+  width: 90%;
+  height: 90px;
+  border: 1px solid ${colors.lightGray};
+  border-radius: 12px;
+  margin: 0px auto;
   gap: 15px;
 `;
 

@@ -1,5 +1,6 @@
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { colors } from 'theme/theme';
 
 const TodoContent = ({ todo }) => {
   const { id, title, content } = todo;
@@ -25,15 +26,16 @@ const TodoContent = ({ todo }) => {
 export default TodoContent;
 
 const TodoIdContainer = styled.div`
-  margin-bottom: 32px;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 32px;
 `;
 
 const TodoContainer = styled.div`
-  background-color: #edffee;
-  padding: 20px;
+  min-height: 220px;
+  padding: 20px 25px;
   border-radius: 10px;
+  background-color: ${colors.lightGreen};
 `;
 
 const StyledTodoId = styled.span`

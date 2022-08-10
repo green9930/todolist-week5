@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { a11yHidden } from 'styles/mixin';
+import { colors } from 'theme/theme';
 
 const TodoTextarea = ({ todoLabel, defaultValue, isHide, changeHandler }) => {
   return (
@@ -12,7 +13,7 @@ const TodoTextarea = ({ todoLabel, defaultValue, isHide, changeHandler }) => {
         name="content"
         rows="10"
         cols="50"
-        placeholder="내용을 입력해주세요. (2~200자)"
+        placeholder="내용을 입력해주세요 (200자 이내)"
         defaultValue={defaultValue}
         onChange={changeHandler}
       ></StyledTextarea>
@@ -30,18 +31,18 @@ TodoTextarea.defaultProps = {
 export default TodoTextarea;
 
 const TodoTextareaContainer = styled.div`
+  display: flex;
+
+  margin-top: 15px;
   .a11y-hidden {
     ${a11yHidden}
   }
 `;
 
 const StyledTextarea = styled.textarea`
-  width: 100%;
-  border: 1px solid #eeeeee;
+  width: 90%;
+  border: 1px solid ${colors.lightGray};
+  border-radius: 5px;
+  margin-left: 10px;
   padding: 12px;
-  font-family: 'Noto Sans KR', sans-serif;
-
-  ::placeholder {
-    font-family: 'Noto Sans KR', sans-serif;
-  }
 `;
