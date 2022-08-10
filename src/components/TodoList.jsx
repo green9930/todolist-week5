@@ -1,21 +1,30 @@
 import styled from 'styled-components';
 import Todo from 'components/Todo';
-import Loading from 'components/Loading';
+import { useDispatch,useSelector } from 'react-redux';
+import {__readTodos} from "../redux/modules/todosSlice";
+import React,{useEffect} from 'react';
 
 function TodoList() {
+  const dispatch = useDispatch();
+  useEffect (()=>{
+    dispatch(__readTodos());
+  },[dispatch]);
+  const {error,isLoading,todos} =useSelector((state)=>state.todos)
+
+  if(isLoading){
+    return <div>로딩 중...</div>
+    }
+  if(error){
+    return <div>{error.message}</div>
+    }
   return (
     <div>
-      {/* {isLoading ? ( */}
-      {/* <Loading /> */}
-      {/* ) : ( */}
       <>
         <TodoListTitle>내 할일</TodoListTitle>
         <ListArray>
-          {/* todos.map() */}
-          <Todo />
+          {todos.map((todo)=><Todo key={todo.id} todo={todo}/>)}
         </ListArray>
       </>
-      {/* )} */}
     </div>
   );
 }

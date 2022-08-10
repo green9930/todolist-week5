@@ -68,8 +68,6 @@ ${(props) => {
         background-color: rgb(203 229 172);
         border: 1px solid rgb(203 229 172);
         border-radius: 3px;
-        height:28px;
-        width:28px;
         padding:4px;
         font-size:16px;
       `
@@ -95,8 +93,6 @@ ${(props) => {
         background-color: rgb(203 229 172);
         border: 1px solid rgb(203 229 172);
         border-radius: 3px;
-        height:28px;
-        width:28px;
         padding:4px;
         font-size:16px;
       `

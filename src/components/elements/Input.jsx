@@ -11,6 +11,8 @@ const Input = ({
   labelText,
   isHide,
   changeHandler = null,
+  minLength,
+  maxLength,
 }) => {
   return (
     <FormInputContainer>
@@ -26,6 +28,8 @@ const Input = ({
         placeholder={placeholder}
         width={width}
         onChange={changeHandler}
+        minLength={minLength}
+        maxLength={maxLength}
       />
     </FormInputContainer>
   );
