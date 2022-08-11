@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const { REACT_APP_COMMENTS_URL } = process.env;
+const { REACT_APP_AXOIS_BASE_URL, REACT_APP_HEROKU_BASE_URL } = process.env;
 
 const initialState = {
   comments: [],
@@ -13,7 +13,11 @@ export const __createComments = createAsyncThunk(
   'createComments',
   async (payload, thunkAPI) => {
     try {
-      const response = await axios.post(REACT_APP_COMMENTS_URL, payload);
+      const response = await axios.post(
+        `${REACT_APP_HEROKU_BASE_URL}/comments`,
+        payload
+      );
+      // const response = await axios.post(`${REACT_APP_AXOIS_BASE_URL}/comments`, payload);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -25,19 +29,9 @@ export const __readComments = createAsyncThunk(
   'readComments',
   async (_, thunkAPI) => {
     try {
-      const response = await axios.get(REACT_APP_COMMENTS_URL);
+      const response = await axios.get(`${REACT_APP_HEROKU_BASE_URL}/comments`);
+      // const response = await axios.get(`${REACT_APP_AXOIS_BASE_URL}/comments`);
       return thunkAPI.fulfillWithValue(response.data);
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
-);
-export const __deleteComments = createAsyncThunk(
-  'deleteComments',
-  async (payload, thunkAPI) => {
-    try {
-      await axios.delete(`${REACT_APP_COMMENTS_URL}/${payload}`);
-      return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -48,9 +42,25 @@ export const __updateComments = createAsyncThunk(
   'updateComments',
   async (payload, thunkAPI) => {
     try {
-      await axios.patch(`${REACT_APP_COMMENTS_URL}/${payload.id}`, {
+      await axios.patch(`${REACT_APP_HEROKU_BASE_URL}/comments/${payload.id}`, {
         commentText: payload.commentText,
       });
+      // await axios.patch(`${REACT_APP_AXOIS_BASE_URL}/comments/${payload.id}`, {
+      //   commentText: payload.commentText,
+      // });
+      return thunkAPI.fulfillWithValue(payload);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const __deleteComments = createAsyncThunk(
+  'deleteComments',
+  async (payload, thunkAPI) => {
+    try {
+      await axios.delete(`${REACT_APP_HEROKU_BASE_URL}/comments/${payload}`);
+      // await axios.delete(`${REACT_APP_AXOIS_BASE_URL}/comments/${payload}`);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
