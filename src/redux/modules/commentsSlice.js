@@ -79,7 +79,6 @@ export const commentsSlice = createSlice({
     [__createComments.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
       state.comments.push(payload);
-      console.log('POST COMMENTS', payload);
     },
     [__createComments.rejected]: (state, { payload }) => {
       state.isLoading = false;
@@ -91,7 +90,6 @@ export const commentsSlice = createSlice({
     [__readComments.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
       state.comments = payload;
-      console.log('GET COMMENTS', payload);
     },
     [__readComments.rejected]: (state, { payload }) => {
       state.isLoading = false;
@@ -107,7 +105,6 @@ export const commentsSlice = createSlice({
           ? { ...comment, commentText: payload.commentText }
           : comment
       );
-      console.log('POST COMMENTS', payload);
     },
     [__updateComments.rejected]: (state, { payload }) => {
       state.isLoading = false;
@@ -121,7 +118,6 @@ export const commentsSlice = createSlice({
       state.comments = state.comments.filter(
         (comment) => comment.id !== payload
       );
-      console.log('DELETE COMMENTS', payload);
     },
     [__deleteComments.rejected]: (state, { payload }) => {
       state.isLoading = false;

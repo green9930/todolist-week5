@@ -3,7 +3,6 @@ import axios from 'axios';
 
 const { REACT_APP_AXOIS_BASE_URL, REACT_APP_HEROKU_BASE_URL } = process.env;
 
-console.log(REACT_APP_HEROKU_BASE_URL);
 const initialState = {
   todos: [],
   isLoading: false,
@@ -83,7 +82,6 @@ export const todosSlice = createSlice({
     [__createTodos.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
       state.todos.push(payload);
-      console.log('POST TODOS', payload);
     },
     [__createTodos.rejected]: (state, { payload }) => {
       state.isLoading = false;
@@ -95,7 +93,6 @@ export const todosSlice = createSlice({
     [__readTodos.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
       state.todos = payload;
-      console.log('GET TODOS', payload);
     },
     [__readTodos.rejected]: (state, { payload }) => {
       state.isLoading = false;
@@ -109,7 +106,6 @@ export const todosSlice = createSlice({
       state.todos = state.todos.map((todo) =>
         todo.id === payload.id ? { ...todo, content: payload.content } : todo
       );
-      console.log('UPDATE TODOS', payload);
     },
     [__updateTodos.rejected]: (state, { payload }) => {
       state.isLoading = false;
@@ -121,7 +117,6 @@ export const todosSlice = createSlice({
     [__deleteTodos.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
       state.todos = state.todos.filter((todo) => todo.id !== payload);
-      console.log('DELETE TODOS', payload);
     },
     [__deleteTodos.rejected]: (state, { payload }) => {
       state.isLoading = false;
