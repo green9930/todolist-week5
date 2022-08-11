@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const { REACT_APP_AXOIS_BASE_URL, REACT_APP_HEROKU_BASE_URL } = process.env;
+const { REACT_APP_AXIOS_BASE_URL, REACT_APP_HEROKU_BASE_URL } = process.env;
 
 const initialState = {
   comments: [],
