@@ -10,11 +10,14 @@ const CommentEditor = ({ comment, handleToggleCommentEditor }) => {
 
   const [newComment, setNewComment, commentReset] = useInput('');
 
-  const { todoId, name, commentText, id } = comment;
+  const { commentText, id } = comment;
 
   const handleUpdateComment = () => {
+    if (newComment.trim()==='' ){return alert("⚠️ 댓글이 변경되지 않았습니다🥺")}
+  
     dispatch(__updateComments({ id: id, commentText: newComment }));
     commentReset();
+
     handleToggleCommentEditor();
   };
 

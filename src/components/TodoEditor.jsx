@@ -11,7 +11,6 @@ const TodoEditor = ({ todo, handleIsEdit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (textContent.trim() === '') return;
     dispatch(__updateTodos({ id: todo.id, content: textContent }));
     handleIsEdit();
   };
