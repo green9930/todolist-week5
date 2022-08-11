@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const { REACT_APP_TODOS_URL } = process.env;
+
 const initialState = {
   todos: [],
   isLoading: false,
@@ -11,7 +13,7 @@ export const __createTodos = createAsyncThunk(
   'createTodos',
   async (payload, thunkAPI) => {
     try {
-      const response = await axios.post('http://localhost:3001/todos', payload);
+      const response = await axios.post(REACT_APP_TODOS_URL, payload);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -21,9 +23,9 @@ export const __createTodos = createAsyncThunk(
 
 export const __readTodos = createAsyncThunk(
   'readTodos',
-  async (payload, thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
-      const response = await axios.get('http://localhost:3001/todos');
+      const response = await axios.get(REACT_APP_TODOS_URL);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -35,7 +37,7 @@ export const __updateTodos = createAsyncThunk(
   'updateTodos',
   async (payload, thunkAPI) => {
     try {
-      await axios.patch(`http://localhost:3001/todos/${payload.id}`, {
+      await axios.patch(`${REACT_APP_TODOS_URL}/${payload.id}`, {
         content: payload.content,
       });
       return thunkAPI.fulfillWithValue(payload);
@@ -49,7 +51,7 @@ export const __deleteTodos = createAsyncThunk(
   'deleteTodos',
   async (payload, thunkAPI) => {
     try {
-      await axios.delete(`http://localhost:3001/todos/${payload}`, payload);
+      await axios.delete(`${REACT_APP_TODOS_URL}/${payload}`, payload);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -91,10 +93,10 @@ export const todosSlice = createSlice({
     },
     [__updateTodos.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
-      console.log('UPDATE TODOS', payload);
       state.todos = state.todos.map((todo) =>
         todo.id === payload.id ? { ...todo, content: payload.content } : todo
       );
+      console.log('UPDATE TODOS', payload);
     },
     [__updateTodos.rejected]: (state, { payload }) => {
       state.isLoading = false;
@@ -105,8 +107,8 @@ export const todosSlice = createSlice({
     },
     [__deleteTodos.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
-      console.log('DELETE TODOS', payload);
       state.todos = state.todos.filter((todo) => todo.id !== payload);
+      console.log('DELETE TODOS', payload);
     },
     [__deleteTodos.rejected]: (state, { payload }) => {
       state.isLoading = false;

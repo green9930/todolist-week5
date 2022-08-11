@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const { REACT_APP_COMMENTS_URL } = process.env;
+
 const initialState = {
   comments: [],
   isLoading: false,
@@ -8,13 +10,10 @@ const initialState = {
 };
 
 export const __createComments = createAsyncThunk(
-  'postComments',
+  'createComments',
   async (payload, thunkAPI) => {
     try {
-      const response = await axios.post(
-        'http://localhost:3001/comments',
-        payload
-      );
+      const response = await axios.post(REACT_APP_COMMENTS_URL, payload);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -23,10 +22,10 @@ export const __createComments = createAsyncThunk(
 );
 
 export const __readComments = createAsyncThunk(
-  'getComments',
-  async (payload, thunkAPI) => {
+  'readComments',
+  async (_, thunkAPI) => {
     try {
-      const response = await axios.get('http://localhost:3001/comments');
+      const response = await axios.get(REACT_APP_COMMENTS_URL);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -37,7 +36,7 @@ export const __deleteComments = createAsyncThunk(
   'deleteComments',
   async (payload, thunkAPI) => {
     try {
-      await axios.delete(`http://localhost:3001/comments/${payload}`);
+      await axios.delete(`${REACT_APP_COMMENTS_URL}/${payload}`);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -49,7 +48,7 @@ export const __updateComments = createAsyncThunk(
   'updateComments',
   async (payload, thunkAPI) => {
     try {
-      await axios.patch(`http://localhost:3001/comments/${payload.id}`, {
+      await axios.patch(`${REACT_APP_COMMENTS_URL}/${payload.id}`, {
         commentText: payload.commentText,
       });
       return thunkAPI.fulfillWithValue(payload);
@@ -64,31 +63,31 @@ export const commentsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [__createComments.pending]: (state, action) => {
+    [__createComments.pending]: (state) => {
       state.isLoading = true;
     },
-    [__createComments.fulfilled]: (state, action) => {
+    [__createComments.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
-      state.comments.push(action.payload);
-      console.log('POST COMMENTS', action);
+      state.comments.push(payload);
+      console.log('POST COMMENTS', payload);
     },
-    [__createComments.rejected]: (state, action) => {
+    [__createComments.rejected]: (state, { payload }) => {
       state.isLoading = false;
-      state.error = action.payload;
+      state.error = payload;
     },
     [__readComments.pending]: (state) => {
       state.isLoading = true;
     },
-    [__readComments.fulfilled]: (state, action) => {
+    [__readComments.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
-      state.comments = action.payload;
-      console.log('GET COMMENTS', action);
+      state.comments = payload;
+      console.log('GET COMMENTS', payload);
     },
     [__readComments.rejected]: (state, { payload }) => {
       state.isLoading = false;
       state.error = payload;
     },
-    [__updateComments.pending]: (state, action) => {
+    [__updateComments.pending]: (state) => {
       state.isLoading = true;
     },
     [__updateComments.fulfilled]: (state, { payload }) => {
@@ -98,12 +97,13 @@ export const commentsSlice = createSlice({
           ? { ...comment, commentText: payload.commentText }
           : comment
       );
+      console.log('POST COMMENTS', payload);
     },
-    [__updateComments.rejected]: (state, action) => {
+    [__updateComments.rejected]: (state, { payload }) => {
       state.isLoading = false;
-      state.error = action.payload;
+      state.error = payload;
     },
-    [__deleteComments.pending]: (state, action) => {
+    [__deleteComments.pending]: (state) => {
       state.isLoading = true;
     },
     [__deleteComments.fulfilled]: (state, { payload }) => {
@@ -111,10 +111,11 @@ export const commentsSlice = createSlice({
       state.comments = state.comments.filter(
         (comment) => comment.id !== payload
       );
+      console.log('DELETE COMMENTS', payload);
     },
-    [__deleteComments.rejected]: (state, action) => {
+    [__deleteComments.rejected]: (state, { payload }) => {
       state.isLoading = false;
-      state.error = action.payload;
+      state.error = payload;
     },
   },
 });
