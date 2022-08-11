@@ -6,19 +6,13 @@ import Loading from 'components/Loading';
 import ErrorMessage from 'components/ErrorMessage';
 import { __readTodos } from 'redux/modules/todosSlice';
 
-
 const TodoList = () => {
   const dispatch = useDispatch();
   const { todos, isLoading, error } = useSelector((state) => state.todos);
 
-
-  console.log(todos)
-
-
   useEffect(() => {
     dispatch(__readTodos());
   }, [dispatch]);
-
 
   if (isLoading) {
     return <Loading />;
@@ -39,8 +33,6 @@ const TodoList = () => {
     </div>
   );
 };
-
-
 
 export default TodoList;
 

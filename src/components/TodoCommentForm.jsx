@@ -93,11 +93,12 @@ const TodoCommentForm = ({ todoId }) => {
 export default TodoCommentForm;
 
 const TodoCommentFormContainer = styled.div`
+  margin-bottom: 24px;
+
   form {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 24px;
     gap: 40px;
 
     input {
@@ -130,5 +131,6 @@ const CommentContainer = styled.div`
 const AlertMessageContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   padding-left: 10px;
 `;

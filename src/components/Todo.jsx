@@ -5,8 +5,6 @@ import Button from 'components/elements/Button';
 import { __deleteTodos } from 'redux/modules/todosSlice';
 import { colors } from 'theme/theme';
 
-
-
 function Todo({ todo }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -16,7 +14,6 @@ function Todo({ todo }) {
   const handleDelete = () => {
     dispatch(__deleteTodos(id));
   };
-
 
   return (
     <div>
