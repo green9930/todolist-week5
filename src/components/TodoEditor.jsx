@@ -7,11 +7,14 @@ import useInput from 'hooks/useInput';
 
 const TodoEditor = ({ todo, handleIsEdit }) => {
   const dispatch = useDispatch();
-  const [textContent, getChangedTextContent] = useInput();
+  const [textContent,getChangedTextContent] = useInput('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (textContent.trim() === '') return;
+
+    if(textContent.trim() === '')
+    {return alert("⚠️내용을 변경해주세요🥺")}
+    
     dispatch(__updateTodos({ id: todo.id, content: textContent }));
     handleIsEdit();
   };
