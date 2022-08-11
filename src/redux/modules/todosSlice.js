@@ -17,7 +17,6 @@ export const __createTodos = createAsyncThunk(
         `${REACT_APP_HEROKU_BASE_URL}/todos`,
         payload
       );
-      // const response = await axios.post(`${REACT_APP_AXOIS_BASE_URL}/todos`, payload);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -30,7 +29,6 @@ export const __readTodos = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await axios.get(`${REACT_APP_HEROKU_BASE_URL}/todos`);
-      // const response = await axios.get(`${REACT_APP_AXOIS_BASE_URL}/todos`);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -45,9 +43,6 @@ export const __updateTodos = createAsyncThunk(
       await axios.patch(`${REACT_APP_HEROKU_BASE_URL}/todos/${payload.id}`, {
         content: payload.content,
       });
-      // await axios.patch(`${REACT_APP_AXOIS_BASE_URL}/todos/${payload.id}`, {
-      //   content: payload.content,
-      // });
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -63,7 +58,6 @@ export const __deleteTodos = createAsyncThunk(
         `${REACT_APP_HEROKU_BASE_URL}/todos/${payload}`,
         payload
       );
-      // await axios.delete(`${REACT_APP_AXOIS_BASE_URL}/todos/${payload}`, payload);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);

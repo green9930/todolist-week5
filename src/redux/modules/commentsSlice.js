@@ -17,7 +17,6 @@ export const __createComments = createAsyncThunk(
         `${REACT_APP_HEROKU_BASE_URL}/comments`,
         payload
       );
-      // const response = await axios.post(`${REACT_APP_AXOIS_BASE_URL}/comments`, payload);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -30,7 +29,6 @@ export const __readComments = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await axios.get(`${REACT_APP_HEROKU_BASE_URL}/comments`);
-      // const response = await axios.get(`${REACT_APP_AXOIS_BASE_URL}/comments`);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -45,9 +43,6 @@ export const __updateComments = createAsyncThunk(
       await axios.patch(`${REACT_APP_HEROKU_BASE_URL}/comments/${payload.id}`, {
         commentText: payload.commentText,
       });
-      // await axios.patch(`${REACT_APP_AXOIS_BASE_URL}/comments/${payload.id}`, {
-      //   commentText: payload.commentText,
-      // });
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -60,7 +55,6 @@ export const __deleteComments = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       await axios.delete(`${REACT_APP_HEROKU_BASE_URL}/comments/${payload}`);
-      // await axios.delete(`${REACT_APP_AXOIS_BASE_URL}/comments/${payload}`);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
