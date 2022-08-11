@@ -14,7 +14,8 @@ export const __createTodos = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const response = await axios.post(
-        `${REACT_APP_HEROKU_BASE_URL}/todos`,
+        'https://todolist-week5.herokuapp.com/todos',
+        // `${REACT_APP_HEROKU_BASE_URL}/todos`,
         payload
       );
       // const response = await axios.post(`${REACT_APP_AXOIS_BASE_URL}/todos`, payload);
@@ -29,7 +30,10 @@ export const __readTodos = createAsyncThunk(
   'readTodos',
   async (_, thunkAPI) => {
     try {
-      const response = await axios.get(`${REACT_APP_HEROKU_BASE_URL}/todos`);
+      const response = await axios.get(
+        'https://todolist-week5.herokuapp.com/todos'
+      );
+      // const response = await axios.get(`${REACT_APP_HEROKU_BASE_URL}/todos`);
       // const response = await axios.get(`${REACT_APP_AXOIS_BASE_URL}/todos`);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
