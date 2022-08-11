@@ -1,27 +1,48 @@
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import Button from 'components/elements/Button';
 import Input from 'components/elements/Input';
 import { __createComments } from 'redux/modules/commentsSlice';
 import useInput from 'hooks/useInput';
+import formValidator from 'utils/formValidator';
 
 const TodoCommentForm = ({ todoId }) => {
   const dispatch = useDispatch();
   const [inputCommentName, getChangedCommentName, resetName] = useInput('');
   const [inputComment, getChangedComment, resetComment] = useInput('');
+  /* ALERT MESSAGE ------------------------------------------------------------ */
+  const [nameAlert, setNameAlert] = useState('');
+  const [commentAlert, setCommentAlert] = useState('');
+  /* VERIFY ------------------------------------------------------------------- */
+  const [isVerified, setIsVerified] = useState(false);
 
   const handleSubmitComment = (e) => {
     e.preventDefault();
-    dispatch(
-      __createComments({
-        todoId: todoId,
-        name: inputCommentName,
-        commentText: inputComment,
-      })
-    );
 
-    resetName();
-    resetComment();
+    const nameResult = formValidator('name', inputCommentName);
+    const commentResult = formValidator('comment', inputComment);
+
+    nameResult.verify && commentResult.verify && setIsVerified(true);
+
+    if (isVerified) {
+      dispatch(
+        __createComments({
+          todoId: todoId,
+          name: inputCommentName,
+          commentText: inputComment,
+        })
+      );
+
+      resetName();
+      resetComment();
+      setNameAlert('');
+      setCommentAlert('');
+      setIsVerified(false);
+    } else {
+      setNameAlert(nameResult.message);
+      setCommentAlert(commentResult.message);
+    }
   };
 
   return (
@@ -61,6 +82,10 @@ const TodoCommentForm = ({ todoId }) => {
           추가
         </Button>
       </form>
+      <AlertMessageContainer>
+        <span>{nameAlert}</span>
+        <span>{commentAlert}</span>
+      </AlertMessageContainer>
     </TodoCommentFormContainer>
   );
 };
@@ -100,4 +125,10 @@ const NameContainer = styled.div`
 const CommentContainer = styled.div`
   flex-grow: 1;
   width: 500px;
+`;
+
+const AlertMessageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-left: 10px;
 `;

@@ -6,7 +6,7 @@ import { __deleteComments } from 'redux/modules/commentsSlice';
 const CommentViewer = ({ comment, handleToggleCommentEditor }) => {
   const dispatch = useDispatch();
 
-  const { todoId, name, commentText, id } = comment;
+  const { name, commentText, id } = comment;
 
   const handleDeleteComment = () => {
     dispatch(__deleteComments(id));
