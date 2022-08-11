@@ -127,7 +127,16 @@ export const todosSlice = createSlice({
       state.isLoading = false;
       state.error = payload;
     },
-  },
-});
+    [__updateTodos.rejected]: (state, { payload }) => {
+      state.isLoading = false;
+      state.error = payload;
+    },
+
+    },
+   
+
+},
+);
+
 
 export default todosSlice;
