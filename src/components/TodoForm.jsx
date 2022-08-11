@@ -18,8 +18,6 @@ const TodoForm = () => {
   const [nameAlert, setNameAlert] = useState('');
   const [titleAlert, setTitleAlert] = useState('');
   const [contentAlert, setContentAlert] = useState('');
-  /* VERIFY ------------------------------------------------------------------- */
-  const [isVerified, setIsVerified] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -31,12 +29,7 @@ const TodoForm = () => {
     const titleResult = formValidator(e.target[1].name, inputTitle);
     const contentResult = formValidator(e.target[2].name, inputContent);
 
-    nameResult.verify &&
-      titleResult.verify &&
-      contentResult.verify &&
-      setIsVerified(true);
-
-    if (isVerified) {
+    if (nameResult.verify && titleResult.verify && contentResult.verify) {
       dispatch(
         __createTodos({
           name: inputName,

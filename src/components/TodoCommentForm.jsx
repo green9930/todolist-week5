@@ -14,8 +14,6 @@ const TodoCommentForm = ({ todoId }) => {
   /* ALERT MESSAGE ------------------------------------------------------------ */
   const [nameAlert, setNameAlert] = useState('');
   const [commentAlert, setCommentAlert] = useState('');
-  /* VERIFY ------------------------------------------------------------------- */
-  const [isVerified, setIsVerified] = useState(false);
 
   const handleSubmitComment = (e) => {
     e.preventDefault();
@@ -23,9 +21,7 @@ const TodoCommentForm = ({ todoId }) => {
     const nameResult = formValidator('name', inputCommentName);
     const commentResult = formValidator('comment', inputComment);
 
-    nameResult.verify && commentResult.verify && setIsVerified(true);
-
-    if (isVerified) {
+    if (nameResult.verify && commentResult.verify) {
       dispatch(
         __createComments({
           todoId: todoId,
@@ -38,7 +34,6 @@ const TodoCommentForm = ({ todoId }) => {
       resetComment();
       setNameAlert('');
       setCommentAlert('');
-      setIsVerified(false);
     } else {
       setNameAlert(nameResult.message);
       setCommentAlert(commentResult.message);

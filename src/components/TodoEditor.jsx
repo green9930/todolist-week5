@@ -54,6 +54,7 @@ const TodoEditorContainer = styled.div`
 const LinkContainer = styled.div`
   text-align: right;
   padding-bottom: 30px;
+  cursor: pointer;
 `;
 
 const TextareaContainer = styled.div`
