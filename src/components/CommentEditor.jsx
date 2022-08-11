@@ -13,8 +13,10 @@ const CommentEditor = ({ comment, handleToggleCommentEditor }) => {
   const { commentText, id } = comment;
 
   const handleUpdateComment = () => {
-    if (newComment.trim()==='' ){return alert("⚠️ 댓글이 변경되지 않았습니다🥺")}
-  
+    if (newComment.trim() === '') {
+      return alert('⚠️ 댓글이 변경되지 않았습니다🥺');
+    }
+
     dispatch(__updateComments({ id: id, commentText: newComment }));
     commentReset();
 

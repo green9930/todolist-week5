@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const { REACT_APP_AXOIS_BASE_URL, REACT_APP_HEROKU_BASE_URL } = process.env;
 
+console.log(REACT_APP_HEROKU_BASE_URL);
 const initialState = {
   todos: [],
   isLoading: false,
